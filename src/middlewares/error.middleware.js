@@ -72,9 +72,10 @@ export const errorHandler = (err, req, res, next) => {
     });
   }
   
-  // Error genérico
-  res.status(err.status || 500).json({
+  // Error genérico o AppError
+  return res.status(err.statusCode || 500).json({
     error: true,
-    message: err.message || 'Error interno del servidor'
+    message: err.message || 'Error interno del servidor',
+    details: err.details || null
   });
 };
