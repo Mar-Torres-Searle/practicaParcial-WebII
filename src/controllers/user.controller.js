@@ -400,8 +400,38 @@ export const uploadLogo = async (req, res) => {
             logo: company.logo
           }
         });
-        
+
     } catch (error) {
         handleHttpError(res, 'ERROR_UPLOAD_LOGO', 500);
+    }
+}
+
+// GET /api/user
+
+export const getUser = async(req, res) => {
+    try {
+        const authUser = req.user;
+    
+        if (!authUser) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        const user = await User.findById(authUser._id).populate('company');
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        res.status(200).json({
+          error: false,
+          message: 'Usuario obtenido correctamente',
+          data: {
+            user
+          }
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_GET_USER', 500);
     }
 }

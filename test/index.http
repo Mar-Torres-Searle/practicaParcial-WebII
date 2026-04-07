@@ -14,10 +14,10 @@ Content-Type: application/json
 #Validar email
 PUT http://localhost:3000/api/user/validation
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZTJjOTcwYjhhMTgwOGZhNjMzMmQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTkzNjksImV4cCI6MTc3NTU2MDI2OX0.blDOvJYvuxRMoh9XtxIWYFgfTO1YGQ-kjeHUhv1RDbY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZWQ3YzU5MDlmYzMzNTA5YzlhNzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjIxMDgsImV4cCI6MTc3NTU2MzAwOH0.l7PcVEftBNjZ0UaivPD6PCASay9nTL9TiV3Nbk3ajdY
 
 {
-  "code": "266585"
+  "code": "251447"
 }
 
 ###
@@ -38,7 +38,7 @@ POST http://localhost:3000/api/user/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg5NTMsImV4cCI6MTc3NjE2Mzc1M30.gFpsENxEw1xVVNhgjH-wkQ0dJJiZXEAaCUTH7zomotU"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg3NDQsImV4cCI6MTc3NjE2MzU0NH0.hM_wrV_3wG6XTYjSouPVcgmryxO7umQtQmNACdDVFR4"
 }
 
 
@@ -141,3 +141,10 @@ Content-Type: image/png
 
 < ./test/logo.png
 --boundary--
+
+
+###
+
+#Get user
+GET http://localhost:3000/api/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZWQ3YzU5MDlmYzMzNTA5YzlhNzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjIxMDgsImV4cCI6MTc3NTU2MzAwOH0.l7PcVEftBNjZ0UaivPD6PCASay9nTL9TiV3Nbk3ajdY
