@@ -45,7 +45,14 @@ export const registerDataSchema = z.object({
         .string()
         .trim()
         .toUpperCase()
-        .length(9, 'El NIF debe tener exactamente 9 caracteres')
+        .length(9, 'El NIF debe tener exactamente 9 caracteres'),
+      address: z.object({
+        street: z.string().trim(),
+        number: z.string().trim(),
+        postal: z.string().trim(),
+        city: z.string().trim(),
+        province: z.string().trim(),
+      })
     })
 });
 

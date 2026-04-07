@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos
-app.use('/uploads', express.static('storage'));
+app.use('/uploads', express.static('uploads'));
 
 // ============================================
 // Rutas

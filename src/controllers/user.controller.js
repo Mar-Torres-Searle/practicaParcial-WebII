@@ -174,7 +174,7 @@ export const refreshTokenUser = async (req, res) => {
           return;
         }
     
-        const user = await User.findById({_id: decoded._id, deleted: false}).select('+refreshToken');
+        const user = await User.findOne({_id: decoded._id, deleted: false}).select('+refreshToken');
     
         if (!user) {
           handleHttpError(res, 'USER_NOT_FOUND', 401);
@@ -477,7 +477,7 @@ export const inviteUser = async (req, res) => {
           email,
           password: hashedPassword,
           role: 'guest',
-          status: 'pending',
+          status: 'verified',
           verificationCode,
           verificationAttempts: 3,
           company: adminUser.company
