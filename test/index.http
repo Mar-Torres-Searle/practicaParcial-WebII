@@ -4,7 +4,7 @@ POST http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
-  "email": "validation9@mail.com",
+  "email": "validation100@mail.com",
   "password": "12345678"
 }
 
@@ -14,10 +14,10 @@ Content-Type: application/json
 #Validar email
 PUT http://localhost:3000/api/user/validation
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZmI2MmZhYzE5ZmFkZTJhNmJmMGMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjU2NjYsImV4cCI6MTc3NTU2NjU2Nn0.Mz0EEnMX8mOeLAlGGUddPJumpimRvmXIleARObLeluM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NzQzYWYxZTRhZjIzYjEwN2NlY2IiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1OTY2MDIsImV4cCI6MTc3NTU5NzUwMn0.ehlm8aGUsAbLs1H0yvpn_xkWrm5-lmujklDfs0whpIo
 
 {
-  "code": "316987"
+  "code": "504006"
 }
 
 ###
@@ -27,7 +27,7 @@ POST http://localhost:3000/api/user/login
 Content-Type: application/json
 
 {
-  "email": "validation1@mail.com",
+  "email": "validation0@mail.com",
   "password": "12345678"
 }
 
@@ -38,7 +38,7 @@ POST http://localhost:3000/api/user/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0Zjc5OThmYmRiOGJhYjRhMmI5NjkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjQ2OTcsImV4cCI6MTc3NjE2OTQ5N30.5cOUrNtILML-Yju0Sa5mF5nkM7FHIu9Q7bKKlaQPImo"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1OTE3NjMsImV4cCI6MTc3NjE5NjU2M30.VCUvx_4ndZTEwgM1y_DkZiUdEkYodS9f0I1j_q3Wdtc"
 }
 
 
@@ -147,31 +147,31 @@ Content-Type: image/png
 
 #Get user
 GET http://localhost:3000/api/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZWQ3YzU5MDlmYzMzNTA5YzlhNzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjIxMDgsImV4cCI6MTc3NTU2MzAwOH0.l7PcVEftBNjZ0UaivPD6PCASay9nTL9TiV3Nbk3ajdY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1OTY5MzMsImV4cCI6MTc3NTU5NzgzM30.Qk58DECMzenPOURj2sIePxTwRjhxEWdURshEAqpY-uw
 
 ###
 
 #Invitar compañeros
 POST http://localhost:3000/api/user/invite
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjM2NDQsImV4cCI6MTc3NTU2NDU0NH0.DXffONokIUU6Z-qru-OkfYA5E5n_kkbCOEKUp2Yc0eg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1OTE3NjMsImV4cCI6MTc3NTU5MjY2M30.lJ9hkdOBbJ9ijHCV0ues4rTw1J3AoxipWvqZGKnjHGk
 
 {
-  "email": "invitado3@mail.com"
+  "email": "invitado4@mail.com"
 }
 
 ###
 
 #Borrar usuario
-DELETE http://localhost:3000/api/user?soft=false
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0Zjc5OThmYmRiOGJhYjRhMmI5NjkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjQ4NzIsImV4cCI6MTc3NTU2NTc3Mn0.oKXH69z0V_u2M45g0npf8dpzLmwceBRNpoSbyuF67cw
+DELETE http://localhost:3000/api/user?soft=true
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NzQzYWYxZTRhZjIzYjEwN2NlY2IiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1OTY2MDIsImV4cCI6MTc3NTU5NzUwMn0.ehlm8aGUsAbLs1H0yvpn_xkWrm5-lmujklDfs0whpIo
 
 ###
 
 #Cambiar contraseña
 PUT http://localhost:3000/api/user/password
 Content-Type: application/json
-//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZmI2MmZhYzE5ZmFkZTJhNmJmMGMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjU2NjYsImV4cCI6MTc3NTU2NjU2Nn0.Mz0EEnMX8mOeLAlGGUddPJumpimRvmXIleARObLeluM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZmI2MmZhYzE5ZmFkZTJhNmJmMGMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjU2NjYsImV4cCI6MTc3NTU2NjU2Nn0.Mz0EEnMX8mOeLAlGGUddPJumpimRvmXIleARObLeluM
 
 
 {

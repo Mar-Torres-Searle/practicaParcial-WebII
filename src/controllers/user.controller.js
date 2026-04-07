@@ -118,7 +118,7 @@ export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
     
-        const user = await User.findOne({ email }).select('+password');
+        const user = await User.findOne({ email, deleted: false }).select('+password');
     
         if (!user) {
           handleHttpError(res, 'INVALID_CREDENTIALS', 401);
@@ -174,7 +174,7 @@ export const refreshTokenUser = async (req, res) => {
           return;
         }
     
-        const user = await User.findById(decoded._id).select('+refreshToken');
+        const user = await User.findById({_id: decoded._id, deleted: false}).select('+refreshToken');
     
         if (!user) {
           handleHttpError(res, 'USER_NOT_FOUND', 401);
@@ -417,7 +417,7 @@ export const getUser = async(req, res) => {
           return;
         }
     
-        const user = await User.findById(authUser._id).populate('company');
+        const user = await User.findById(authUser._id).select('-verificationCode -verificationAttempts -refreshToken -deleted -createdAt -updatedAt').populate('company', '-deleted -createdAt -updatedAt');
     
         if (!user) {
           handleHttpError(res, 'USER_NOT_FOUND', 404);
@@ -483,7 +483,7 @@ export const inviteUser = async (req, res) => {
           company: adminUser.company
         });
         
-
+        //la contraseña temporal deberia enviarse por correo, se pone por consola para no mostrar información sensible en la petición
         notificationService.emit('user:invited', invitedUser);
     
         res.status(201).json({
@@ -495,10 +495,12 @@ export const inviteUser = async (req, res) => {
               role: invitedUser.role,
               status: invitedUser.status,
               company: invitedUser.company
-            },
-            temporaryPassword
+            }
           }
         });
+
+        console.log('Temporary password for invited user:', temporaryPassword);
+
     } catch (error) {
         handleHttpError(res, 'ERROR_INVITE_USER', 500);
     }

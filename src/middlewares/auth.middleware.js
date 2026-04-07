@@ -26,7 +26,7 @@ const authMiddleware = async (req, res, next) => {
     }
     
     // Buscar usuario y añadirlo a req
-    const user = await User.findById(dataToken._id);
+    const user = await User.findOne({_id: dataToken._id, deleted: false});
     
     if (!user) {
       handleHttpError(res, 'USER_NOT_FOUND', 401);

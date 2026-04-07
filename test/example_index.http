@@ -1,0 +1,217 @@
+###
+# 1) REGISTER
+POST http://localhost:3000/api/user/register
+Content-Type: application/json
+
+{
+  "email": "validation3@mail.com",
+  "password": "12345678"
+}
+
+###
+# 2) VALIDATION
+# Usa el accessToken del register
+# El código lo sacas de la BD
+PUT http://localhost:3000/api/user/validation
+Content-Type: application/json
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+{
+  "code": "123456"
+}
+
+###
+# 3) LOGIN
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+  "email": "validation3@mail.com",
+  "password": "12345678"
+}
+
+###
+# 4) ONBOARDING PERSONAL DATA
+PUT http://localhost:3000/api/user/register
+Content-Type: application/json
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+{
+  "name": "Mar",
+  "lastName": "Torres Searle",
+  "nif": "10439756B",
+  "address": {
+    "street": "Avenida",
+    "number": "16",
+    "postal": "28402",
+    "city": "Madrid",
+    "province": "Madrid"
+  }
+}
+
+###
+# 5) COMPANY ONBOARDING (FREELANCE)
+PATCH http://localhost:3000/api/user/company
+Content-Type: application/json
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+{
+  "name": "Mar Torres",
+  "cif": "TEMP12345",
+  "address": {
+    "street": "Avenida",
+    "number": "16",
+    "postal": "28402",
+    "city": "Madrid",
+    "province": "Madrid"
+  },
+  "isFreelance": true
+}
+
+###
+# 6) GET CURRENT USER
+GET http://localhost:3000/api/user
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+###
+# 7) REFRESH TOKEN
+POST http://localhost:3000/api/user/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "PEGA_AQUI_EL_REFRESH_TOKEN"
+}
+
+###
+# 8) LOGOUT
+POST http://localhost:3000/api/user/logout
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+###
+# 9) LOGIN DE NUEVO
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+  "email": "validation3@mail.com",
+  "password": "12345678"
+}
+
+###
+# 10) UPLOAD LOGO
+PATCH http://localhost:3000/api/user/logo
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="logo"; filename="logo.png"
+Content-Type: image/png
+
+< ./test/logo.png
+--MyBoundary--
+
+###
+# 11) INVITE USER
+POST http://localhost:3000/api/user/invite
+Content-Type: application/json
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+{
+  "email": "invitado4@mail.com"
+}
+
+###
+# 12) LOGIN INVITED USER
+# Usa la contraseña que sale en consola
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+  "email": "invitado4@mail.com",
+  "password": "PEGA_PASSWORD_TEMPORAL"
+}
+
+###
+# 13) CHANGE PASSWORD
+PUT http://localhost:3000/api/user/password
+Content-Type: application/json
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+{
+  "currentPassword": "12345678",
+  "newPassword": "87654321"
+}
+
+###
+# 14) LOGIN CON NUEVA PASSWORD
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+  "email": "validation3@mail.com",
+  "password": "87654321"
+}
+
+###
+# 15) DELETE USER (SOFT)
+DELETE http://localhost:3000/api/user?soft=true
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+###
+# 16) DELETE USER (HARD)
+DELETE http://localhost:3000/api/user
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+###
+# ------------------------
+# CASOS DE ERROR
+# ------------------------
+
+###
+# REGISTER EMAIL INVÁLIDO
+POST http://localhost:3000/api/user/register
+Content-Type: application/json
+
+{
+  "email": "no-es-email",
+  "password": "12345678"
+}
+
+###
+# LOGIN INCORRECTO
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+  "email": "validation3@mail.com",
+  "password": "malpassword"
+}
+
+###
+# VALIDATION CÓDIGO INCORRECTO
+PUT http://localhost:3000/api/user/validation
+Content-Type: application/json
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+{
+  "code": "000000"
+}
+
+###
+# REFRESH TOKEN INVÁLIDO
+POST http://localhost:3000/api/user/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "token-falso"
+}
+
+###
+# INVITE DUPLICADO
+POST http://localhost:3000/api/user/invite
+Content-Type: application/json
+Authorization: Bearer PEGA_AQUI_EL_ACCESS_TOKEN
+
+{
+  "email": "invitado4@mail.com"
+}
