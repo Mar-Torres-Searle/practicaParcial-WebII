@@ -38,7 +38,7 @@ POST http://localhost:3000/api/user/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg3NDQsImV4cCI6MTc3NjE2MzU0NH0.hM_wrV_3wG6XTYjSouPVcgmryxO7umQtQmNACdDVFR4"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjMyNzYsImV4cCI6MTc3NjE2ODA3Nn0.Bb7wFaz-0dUeMZUrpRGxaqjVvnlBoQ5Ncy2xW_dwQYQ"
 }
 
 
@@ -148,3 +148,14 @@ Content-Type: image/png
 #Get user
 GET http://localhost:3000/api/user
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZWQ3YzU5MDlmYzMzNTA5YzlhNzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjIxMDgsImV4cCI6MTc3NTU2MzAwOH0.l7PcVEftBNjZ0UaivPD6PCASay9nTL9TiV3Nbk3ajdY
+
+###
+
+#Invitar compañeros
+POST http://localhost:3000/api/user/invite
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjM2NDQsImV4cCI6MTc3NTU2NDU0NH0.DXffONokIUU6Z-qru-OkfYA5E5n_kkbCOEKUp2Yc0eg
+
+{
+  "email": "invitado3@mail.com"
+}

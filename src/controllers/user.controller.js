@@ -435,3 +435,71 @@ export const getUser = async(req, res) => {
         handleHttpError(res, 'ERROR_GET_USER', 500);
     }
 }
+
+// POST /api/user/invite
+
+const generateTemporaryPassword = () => {
+    return `Temp${Math.floor(100000 + Math.random() * 900000)}!`;
+};
+
+export const inviteUser = async (req, res) => {
+    try {
+        const adminUser = req.user;
+        const { email } = req.body;
+    
+        if (!adminUser) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        if (adminUser.role !== 'admin') {
+          handleHttpError(res, 'NOT_ALLOWED', 403);
+          return;
+        }
+    
+        if (!adminUser.company) {
+          handleHttpError(res, 'ADMIN_WITHOUT_COMPANY', 400);
+          return;
+        }
+    
+        const existingUser = await User.findOne({ email });
+    
+        if (existingUser) {
+          handleHttpError(res, 'EMAIL_ALREADY_EXISTS', 409);
+          return;
+        }
+    
+        const temporaryPassword = generateTemporaryPassword();
+        const hashedPassword = await encrypt(temporaryPassword);
+        const verificationCode = generateVerificationCode();
+    
+        const invitedUser = await User.create({
+          email,
+          password: hashedPassword,
+          role: 'guest',
+          status: 'pending',
+          verificationCode,
+          verificationAttempts: 3,
+          company: adminUser.company
+        });
+        
+
+        notificationService.emit('user:invited', invitedUser);
+    
+        res.status(201).json({
+          error: false,
+          message: 'Usuario invitado correctamente',
+          data: {
+            user: {
+              email: invitedUser.email,
+              role: invitedUser.role,
+              status: invitedUser.status,
+              company: invitedUser.company
+            },
+            temporaryPassword
+          }
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_INVITE_USER', 500);
+    }
+}
