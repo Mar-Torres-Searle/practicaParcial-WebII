@@ -3,10 +3,11 @@ import { z } from 'zod';
 export const registerSchema = z.object({
   body: z.object({
     email: z
-      .email({ message: 'Email no válido' })
-      .transform((value) => value.trim().toLowerCase()),
+      .string({ error: 'El email es requerido' })
+      .transform((value) => value.trim().toLowerCase())
+      .pipe(z.email({ message: 'Email no válido' })),
     password: z
-      .string()
+      .string({ error: 'Lacontraseña es requerida' })
       .min(8, 'La contraseña debe tener al menos 8 caracteres')
   })
 });
