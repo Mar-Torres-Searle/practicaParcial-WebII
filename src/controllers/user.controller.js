@@ -66,31 +66,34 @@ export const validateUser = async (req, res) => {
         const user = req.user;
 
         if (!user) {
-        handleHttpError(res, 'USER_NOT_FOUND', 404);
-        return;
+            handleHttpError(res, 'USER_NOT_FOUND', 404);
+            return;
         }
 
         if (user.status === 'verified') {
-        handleHttpError(res, 'USER_ALREADY_VERIFIED', 400);
-        return;
+            handleHttpError(res, 'USER_ALREADY_VERIFIED', 400);
+            return;
         }
-
-        if (user.verificationAttempts <= 0) {
-        handleHttpError(res, 'NO_ATTEMPTS_LEFT', 429);
-        return;
-        }
-
-        if (user.verificationCode !== code) {
-        user.verificationAttempts -= 1;
-        await user.save();
 
         if (user.verificationAttempts <= 0) {
             handleHttpError(res, 'NO_ATTEMPTS_LEFT', 429);
             return;
         }
 
-        handleHttpError(res, 'INVALID_CODE', 400);
-        return;
+        if (user.verificationCode !== code) {
+            user.verificationAttempts -= 1;
+            await user.save();
+
+            if (user.verificationAttempts <= 0) {
+                handleHttpError(res, 'NO_ATTEMPTS_LEFT', 429);
+                return;
+            }
+
+            return res.status(400).json({
+                error: true,
+                message: 'Código incorrecto',
+                attemptsLeft: user.verificationAttempts
+            });
         }
 
         user.status = 'verified';
@@ -103,9 +106,10 @@ export const validateUser = async (req, res) => {
         error: false,
         message: 'Usuario verificado correctamente'
         });
-  } catch (error) {
-    handleHttpError(res, 'ERROR_USER_VALIDATION', 500);
-  }
+
+    } catch (error) {
+        handleHttpError(res, 'ERROR_USER_VALIDATION', 500);
+    }
 };
 
 // POST /api/user/login
@@ -350,5 +354,54 @@ export const companyDataUser = async (req, res) => {
         });
     } catch (error) {
         handleHttpError(res, 'ERROR_UPDATE_COMPANY_DATA', 500);
+    }
+}
+
+
+// PATCH /api/user/logo
+
+export const uploadLogo = async (req, res) => {
+    try {
+        const user = req.user;
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        if (!user.company) {
+          handleHttpError(res, 'USER_WITHOUT_COMPANY', 400);
+          return;
+        }
+    
+        if (!req.file) {
+          handleHttpError(res, 'NO_FILE_UPLOADED', 400);
+          return;
+        }
+    
+        const company = await Company.findById(user.company);
+    
+        if (!company) {
+          handleHttpError(res, 'COMPANY_NOT_FOUND', 404);
+          return;
+        }
+    
+        company.logo = {
+          url: `/uploads/${req.file.filename}`,
+          filename: req.file.filename
+        };
+    
+        await company.save();
+    
+        res.status(200).json({
+          error: false,
+          message: 'Logo subido correctamente',
+          data: {
+            logo: company.logo
+          }
+        });
+        
+    } catch (error) {
+        handleHttpError(res, 'ERROR_UPLOAD_LOGO', 500);
     }
 }

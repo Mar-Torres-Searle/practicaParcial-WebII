@@ -4,7 +4,7 @@ POST http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
-  "email": "validation1@mail.com",
+  "email": "validation6@mail.com",
   "password": "12345678"
 }
 
@@ -14,7 +14,7 @@ Content-Type: application/json
 #Validar email
 PUT http://localhost:3000/api/user/validation
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg5NTMsImV4cCI6MTc3NTU1OTg1M30.BolqmPMowZbX6CBIrAG6Aa9nnqxHk-9lvi9897QDRdE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZTJjOTcwYjhhMTgwOGZhNjMzMmQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTkzNjksImV4cCI6MTc3NTU2MDI2OX0.blDOvJYvuxRMoh9XtxIWYFgfTO1YGQ-kjeHUhv1RDbY
 
 {
   "code": "266585"
@@ -38,7 +38,7 @@ POST http://localhost:3000/api/user/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTI1MzYsImV4cCI6MTc3NjE1NzMzNn0.bFQwEPcSvazloTGT5Cj4Ww7pgxKn4vp32C1pHQmrE04"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg5NTMsImV4cCI6MTc3NjE2Mzc1M30.gFpsENxEw1xVVNhgjH-wkQ0dJJiZXEAaCUTH7zomotU"
 }
 
 
@@ -127,3 +127,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZGQ3Z
   },
   "isFreelance": false
 }
+
+###
+
+#Upload logo company
+PATCH http://localhost:3000/api/user/logo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiZ3Vlc3QiLCJpYXQiOjE3NzU1NjA3NzQsImV4cCI6MTc3NTU2MTY3NH0.TG581cUQgqBAI4lEK_6dKaahyU2Gwmx14_xgg03tfw8
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="logo"; filename="descarga.png"
+Content-Type: image/png
+
+< ./test/logo.png
+--boundary--

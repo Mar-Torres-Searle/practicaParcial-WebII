@@ -2,8 +2,9 @@ import { Router } from 'express';
 import authMiddleware from '../middlewares/auth.middleware.js';
 import checkRol from '../middlewares/role.middleware.js';
 import {validate} from '../middlewares/validate.middleware.js';
-import { registerUser, validateUser, loginUser, refreshTokenUser, logoutUser, registerDataUser, companyDataUser } from '../controllers/user.controller.js';
+import { registerUser, validateUser, loginUser, refreshTokenUser, logoutUser, registerDataUser, companyDataUser, uploadLogo } from '../controllers/user.controller.js';
 import { registerSchema, validationSchema, loginSchema, refreshSchema, registerDataSchema, companyDataSchema } from '../validators/user.validator.js';
+import { upload } from '../middlewares/upload.middleware.js';
 
 
 const userRouter = Router();
@@ -16,6 +17,6 @@ userRouter.post('/refresh', validate(refreshSchema), refreshTokenUser);
 userRouter.post('/logout', authMiddleware, logoutUser);
 userRouter.put('/register', authMiddleware, validate(registerDataSchema), registerDataUser);
 userRouter.patch('/company', authMiddleware, validate(companyDataSchema), companyDataUser);
-
+userRouter.patch('/logo', authMiddleware, upload.single('logo'), uploadLogo);
 
 export default userRouter;
