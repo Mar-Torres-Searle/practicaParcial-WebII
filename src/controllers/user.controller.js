@@ -542,3 +542,45 @@ export const deleteUser = async (req, res) => {
         handleHttpError(res, 'ERROR_DELETE_USER', 500);
     }
 }
+
+// PUT /api/user/password
+
+export const changePassword = async (req, res) => {
+    try {
+        const authUser = req.user;
+        const { currentPassword, newPassword } = req.body;
+    
+        if (!authUser) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        const user = await User.findById(authUser._id).select('+password');
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        const isValidPassword = await compare(currentPassword, user.password);
+    
+        if (!isValidPassword) {
+          handleHttpError(res, 'INVALID_CURRENT_PASSWORD', 401);
+          return;
+        }
+    
+        const hashedPassword = await encrypt(newPassword);
+        user.password = hashedPassword;
+    
+        user.refreshToken = undefined;
+    
+        await user.save();
+    
+        res.status(200).json({
+          error: false,
+          message: 'Contraseña actualizada correctamente'
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_UPDATE_PASSWORD', 500);
+    }
+}

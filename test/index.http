@@ -14,10 +14,10 @@ Content-Type: application/json
 #Validar email
 PUT http://localhost:3000/api/user/validation
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0Zjc5OThmYmRiOGJhYjRhMmI5NjkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjQ4NzIsImV4cCI6MTc3NTU2NTc3Mn0.oKXH69z0V_u2M45g0npf8dpzLmwceBRNpoSbyuF67cw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZmI2MmZhYzE5ZmFkZTJhNmJmMGMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjU2NjYsImV4cCI6MTc3NTU2NjU2Nn0.Mz0EEnMX8mOeLAlGGUddPJumpimRvmXIleARObLeluM
 
 {
-  "code": "852722"
+  "code": "316987"
 }
 
 ###
@@ -165,3 +165,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxO
 #Borrar usuario
 DELETE http://localhost:3000/api/user?soft=false
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0Zjc5OThmYmRiOGJhYjRhMmI5NjkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjQ4NzIsImV4cCI6MTc3NTU2NTc3Mn0.oKXH69z0V_u2M45g0npf8dpzLmwceBRNpoSbyuF67cw
+
+###
+
+#Cambiar contraseña
+PUT http://localhost:3000/api/user/password
+Content-Type: application/json
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZmI2MmZhYzE5ZmFkZTJhNmJmMGMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjU2NjYsImV4cCI6MTc3NTU2NjU2Nn0.Mz0EEnMX8mOeLAlGGUddPJumpimRvmXIleARObLeluM
+
+
+{
+  "currentPassword": "87654321",
+  "newPassword": "87654321"
+}
