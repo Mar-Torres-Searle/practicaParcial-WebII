@@ -19,14 +19,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       //required: [true, 'El nombre es requerido'],
       trim: true,
-      minlength: [3, 'Mínimo 3 caracteres'],
+      minlength: [1, 'Mínimo 1 caracter'],
       maxlength: [99, 'Máximo 99 caracteres']
     },
     lastName: {
         type: String,
         //required: [true, 'El apellido es requerido'],
         trim: true,
-        minlength: [3, 'Mínimo 3 caracteres'],
+        minlength: [1, 'Mínimo 1 caracter'],
         maxlength: [99, 'Máximo 99 caracteres']
     },
     nif: {
