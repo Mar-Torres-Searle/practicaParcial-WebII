@@ -7,5 +7,18 @@ POST http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
-    "password": "12345678"
+  "email": "validation3@mail.com",
+  "password": "12345678"
+}
+
+
+###
+
+#Validar email
+PUT http://localhost:3000/api/user/validation
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NDc5MjgsImV4cCI6MTc3NTU0ODgyOH0.Ru5RcWC-sgHW9wHSUPd-UczFE_4UAwWepz9ea8pT8Qs
+
+{
+  "code": "287312"
 }

@@ -55,4 +55,60 @@ export const registerUser = async (req, res) => {
     } catch (error) {
         handleHttpError(res, 'ERROR_REGISTER_USER', 500);
     }
+};
+
+//PUT /api/user/validation
+
+export const validateUser = async (req, res) => {
+    try{
+        const { code } = req.body;
+        const user = req.user;
+
+        if (!user) {
+        handleHttpError(res, 'USER_NOT_FOUND', 404);
+        return;
+        }
+
+        if (user.status === 'verified') {
+        handleHttpError(res, 'USER_ALREADY_VERIFIED', 400);
+        return;
+        }
+
+        if (user.verificationAttempts <= 0) {
+        handleHttpError(res, 'NO_ATTEMPTS_LEFT', 429);
+        return;
+        }
+
+        if (user.verificationCode !== code) {
+        user.verificationAttempts -= 1;
+        await user.save();
+
+        if (user.verificationAttempts <= 0) {
+            handleHttpError(res, 'NO_ATTEMPTS_LEFT', 429);
+            return;
+        }
+
+        handleHttpError(res, 'INVALID_CODE', 400);
+        return;
+        }
+
+        user.status = 'verified';
+        user.verificationCode = undefined;
+        await user.save();
+
+        notificationService.emit('user:verified', user);
+
+        res.status(200).json({
+        error: false,
+        message: 'Usuario verificado correctamente'
+        });
+  } catch (error) {
+    handleHttpError(res, 'ERROR_USER_VALIDATION', 500);
+  }
+};
+
+// POST /api/user/login
+
+export const loginUser = async (req, res) => {
+    
 }
