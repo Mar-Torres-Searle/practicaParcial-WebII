@@ -223,3 +223,40 @@ export const logoutUser = async (req, res) => {
         handleHttpError(res, 'ERROR_LOGOUT_USER', 500);
     }
 }
+
+// PUT /api/user/register
+
+export const registerDataUser = async (req, res) => {
+    try {
+        const { name, lastName, nif } = req.body;
+        const user = req.user;
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        user.name = name;
+        user.lastName = lastName;
+        user.nif = nif;
+    
+        await user.save();
+    
+        res.status(200).json({
+          error: false,
+          message: 'Datos personales actualizados correctamente',
+          data: {
+            user: {
+              email: user.email,
+              name: user.name,
+              lastName: user.lastName,
+              nif: user.nif,
+              status: user.status,
+              role: user.role
+            }
+          }
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_UPDATE_USER_DATA', 500);
+    }
+}

@@ -29,15 +29,15 @@ export const loginSchema = z.object({
   })
 });
 
-export const userDataSchema = z.object({
+export const registerDataSchema = z.object({
     body: z.object({
       name: z
-        .string()
+        .string({ error: 'El nombre es requerido' })
         .trim()
         .min(1, 'El nombre es requerido')
         .max(99, 'Máximo 99 caracteres'),
       lastName: z
-        .string()
+        .string({ error: 'El apellido es requerido' })
         .trim()
         .min(1, 'El apellido es requerido')
         .max(99, 'Máximo 99 caracteres'),
