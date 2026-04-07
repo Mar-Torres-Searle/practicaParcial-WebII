@@ -2,7 +2,7 @@ import User from '../models/user.model.js';
 import { handleHttpError } from '../utils/handleError.js';
 import notificationService from '../services/notification.service.js';
 import { encrypt, compare } from '../utils/handlePassword.js';
-import { tokenSign, tokenSignRefresh } from '../utils/handleJwt.js';
+import { tokenSign, tokenSignRefresh, verifyRefreshToken } from '../utils/handleJwt.js';
 
 
 const generateVerificationCode = () => {
@@ -153,5 +153,50 @@ export const loginUser = async (req, res) => {
         });
     } catch (error) {
         handleHttpError(res, 'ERROR_LOGIN_USER', 500);
+    }
+}
+
+// POST /api/user/refresh
+
+export const refreshTokenUser = async (req, res) => {
+    try {
+        const { refreshToken } = req.body;
+    
+        const decoded = verifyRefreshToken(refreshToken);
+    
+        if (!decoded || !decoded._id) {
+          handleHttpError(res, 'INVALID_REFRESH_TOKEN', 401);
+          return;
+        }
+    
+        const user = await User.findById(decoded._id).select('+refreshToken');
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 401);
+          return;
+        }
+    
+        if (!user.refreshToken || user.refreshToken !== refreshToken) {
+          handleHttpError(res, 'INVALID_REFRESH_TOKEN', 401);
+          return;
+        }
+    
+        const accessToken = tokenSign(user);
+        const newRefreshToken = tokenSignRefresh(user);
+
+        user.refreshToken = newRefreshToken;
+        await user.save();
+    
+        res.status(200).json({
+          error: false,
+          message: 'Tokens renovados correctamente',
+          data: {
+            accessToken,
+            refreshToken: newRefreshToken
+          }
+        });
+    } catch (error) {
+        console.error('ERROR REAL EN REFRESH:', error);
+        handleHttpError(res, 'ERROR_REFRESH_TOKEN', 500);
     }
 }
