@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import Company from '../models/company.model.js'
 import { handleHttpError } from '../utils/handleError.js';
 import notificationService from '../services/notification.service.js';
 import { encrypt, compare } from '../utils/handlePassword.js';
@@ -228,7 +229,7 @@ export const logoutUser = async (req, res) => {
 
 export const registerDataUser = async (req, res) => {
     try {
-        const { name, lastName, nif } = req.body;
+        const { name, lastName, nif, address } = req.body;
         const user = req.user;
     
         if (!user) {
@@ -239,6 +240,7 @@ export const registerDataUser = async (req, res) => {
         user.name = name;
         user.lastName = lastName;
         user.nif = nif;
+        user.address = address;
     
         await user.save();
     
@@ -251,6 +253,7 @@ export const registerDataUser = async (req, res) => {
               name: user.name,
               lastName: user.lastName,
               nif: user.nif,
+              address: user.address,
               status: user.status,
               role: user.role
             }
@@ -258,5 +261,94 @@ export const registerDataUser = async (req, res) => {
         });
     } catch (error) {
         handleHttpError(res, 'ERROR_UPDATE_USER_DATA', 500);
+    }
+}
+
+
+// PATCH /api/user/company
+
+export const companyDataUser = async (req, res) => {
+    try {
+        const user = req.user;
+        const { name, cif, address, isFreelance } = req.body;
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        if (!user.name || !user.lastName || !user.nif || !user.address) {
+          handleHttpError(res, 'USER_PERSONAL_DATA_REQUIRED', 400);
+          return;
+        }
+    
+        // Caso autónomo
+        if (isFreelance === true) {
+          let company = await Company.findOne({ cif: user.nif });
+    
+          if (!company) {
+            company = await Company.create({
+              owner: user._id,
+              name: `${user.name} ${user.lastName}`,
+              cif: user.nif,
+              address: user.address,
+              isFreelance: true
+            });
+          }
+    
+          user.company = company._id;
+          user.role = 'admin';
+          await user.save();
+    
+          res.status(200).json({
+            error: false,
+            message: 'Compañía de autónomo creada/asignada correctamente',
+            data: {
+              company
+            }
+          });
+          return;
+        }
+    
+        // Caso empresa normal
+        const existingCompany = await Company.findOne({ cif });
+    
+        if (!existingCompany) {
+          const company = await Company.create({
+            owner: user._id,
+            name,
+            cif,
+            address,
+            isFreelance: false
+          });
+    
+          user.company = company._id;
+          user.role = 'admin';
+          await user.save();
+    
+          res.status(201).json({
+            error: false,
+            message: 'Compañía creada y asignada correctamente',
+            data: {
+              company
+            }
+          });
+          return;
+        }
+    
+        // Si ya existe, se une y pasa a guest
+        user.company = existingCompany._id;
+        user.role = 'guest';
+        await user.save();
+    
+        res.status(200).json({
+          error: false,
+          message: 'Usuario unido a compañía existente',
+          data: {
+            company: existingCompany
+          }
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_UPDATE_COMPANY_DATA', 500);
     }
 }

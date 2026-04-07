@@ -1,13 +1,10 @@
-GET http://localhost:3000/api/user/test
-
-###
 
 #Registrar usuario
 POST http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
-  "email": "validation5@mail.com",
+  "email": "validation1@mail.com",
   "password": "12345678"
 }
 
@@ -17,10 +14,10 @@ Content-Type: application/json
 #Validar email
 PUT http://localhost:3000/api/user/validation
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NDc5MjgsImV4cCI6MTc3NTU0ODgyOH0.Ru5RcWC-sgHW9wHSUPd-UczFE_4UAwWepz9ea8pT8Qs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg5NTMsImV4cCI6MTc3NTU1OTg1M30.BolqmPMowZbX6CBIrAG6Aa9nnqxHk-9lvi9897QDRdE
 
 {
-  "code": "287312"
+  "code": "266585"
 }
 
 ###
@@ -41,7 +38,7 @@ POST http://localhost:3000/api/user/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NDc5MjgsImV4cCI6MTc3NjE1MjcyOH0.j2mSjN6ynlN7A4DC6bFDj5oyA_5ztqcThriaJfq-cg8"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTI1MzYsImV4cCI6MTc3NjE1NzMzNn0.bFQwEPcSvazloTGT5Cj4Ww7pgxKn4vp32C1pHQmrE04"
 }
 
 
@@ -56,10 +53,77 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjU5N
 #Onboarding data user
 PUT http://localhost:3000/api/user/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjU5NmYzYTZlYjVmNjBjOWY2YmEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTYxNTYsImV4cCI6MTc3NTU1NzA1Nn0.zFWU9r6suCnyi5xn_rIDzzo0jMw50Hdbj260hiUlCDU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg5NTMsImV4cCI6MTc3NTU1OTg1M30.BolqmPMowZbX6CBIrAG6Aa9nnqxHk-9lvi9897QDRdE
 
 {
-  "name": "Marta",
-  "lastName": "García López",
-  "nif": "12345678A"
+  "name": "Marco",
+  "lastName": "Pérez Roldán",
+  "nif": "30839276N",
+  "address": {
+    "street": "Cañada",
+    "number": "55",
+    "postal": "22620",
+    "city": "Madrid",
+    "province": "Madrid"
+  }
+}
+
+###
+
+#Onboarding company autónomo
+PATCH http://localhost:3000/api/user/company
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg3NDQsImV4cCI6MTc3NTU1OTY0NH0.IPyb1QryiylzzbAiMzJIBbDxbaIl7CjGOuHXPtqO6Fw
+
+{
+  "name": "Temporal",
+  "cif": "TEMP12345",
+  "address": {
+    "street": "Calle Real",
+    "number": "1",
+    "postal": "41001",
+    "city": "Sevilla",
+    "province": "Sevilla"
+  },
+  "isFreelance": true
+}
+
+###
+
+#Onboarding company existente
+PATCH http://localhost:3000/api/user/company
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YzgxOGRmOTEwY2VhMGRkMjcxZDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTg5NTMsImV4cCI6MTc3NTU1OTg1M30.BolqmPMowZbX6CBIrAG6Aa9nnqxHk-9lvi9897QDRdE
+
+{
+  "name": "Empresa Nueva SL",
+  "cif": "B12345678",
+  "address": {
+    "street": "Mayor",
+    "number": "10",
+    "postal": "28001",
+    "city": "Madrid",
+    "province": "Madrid"
+  },
+  "isFreelance": false
+}
+###
+
+#Onboarding company nueva
+
+PATCH http://localhost:3000/api/user/company
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZGQ3ZmIxMzFlYmM1YTBlZGI4ODgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTgwMTUsImV4cCI6MTc3NTU1ODkxNX0.S9A9bd8piWkoXAIPQpVG6D0hHK2fPTM39dzXRjSMsss
+
+{
+  "name": "Empresa Nueva SL",
+  "cif": "B12345678",
+  "address": {
+    "street": "Mayor",
+    "number": "10",
+    "postal": "28001",
+    "city": "Madrid",
+    "province": "Madrid"
+  },
+  "isFreelance": false
 }
