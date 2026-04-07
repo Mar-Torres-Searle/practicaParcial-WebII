@@ -503,3 +503,42 @@ export const inviteUser = async (req, res) => {
         handleHttpError(res, 'ERROR_INVITE_USER', 500);
     }
 }
+
+//DELETE /api/user
+
+export const deleteUser = async (req, res) => {
+    try {
+        const user = req.user;
+        const { soft } = req.query;
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        if (soft === 'true') {
+          user.deleted = true;
+          user.refreshToken = undefined;
+          await user.save();
+    
+          notificationService.emit('user:deleted', user);
+    
+          res.status(200).json({
+            error: false,
+            message: 'Usuario eliminado lógicamente'
+          });
+          return;
+        }
+    
+        await User.findByIdAndDelete(user._id);
+    
+        notificationService.emit('user:deleted', user);
+    
+        res.status(200).json({
+          error: false,
+          message: 'Usuario eliminado definitivamente'
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_DELETE_USER', 500);
+    }
+}

@@ -4,7 +4,7 @@ POST http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
-  "email": "validation6@mail.com",
+  "email": "validation9@mail.com",
   "password": "12345678"
 }
 
@@ -14,10 +14,10 @@ Content-Type: application/json
 #Validar email
 PUT http://localhost:3000/api/user/validation
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZWQ3YzU5MDlmYzMzNTA5YzlhNzMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjIxMDgsImV4cCI6MTc3NTU2MzAwOH0.l7PcVEftBNjZ0UaivPD6PCASay9nTL9TiV3Nbk3ajdY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0Zjc5OThmYmRiOGJhYjRhMmI5NjkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjQ4NzIsImV4cCI6MTc3NTU2NTc3Mn0.oKXH69z0V_u2M45g0npf8dpzLmwceBRNpoSbyuF67cw
 
 {
-  "code": "251447"
+  "code": "852722"
 }
 
 ###
@@ -38,7 +38,7 @@ POST http://localhost:3000/api/user/refresh
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxOGYzYTZlYjVmNjBjOWY2Y2EiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjMyNzYsImV4cCI6MTc3NjE2ODA3Nn0.Bb7wFaz-0dUeMZUrpRGxaqjVvnlBoQ5Ncy2xW_dwQYQ"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0Zjc5OThmYmRiOGJhYjRhMmI5NjkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjQ2OTcsImV4cCI6MTc3NjE2OTQ5N30.5cOUrNtILML-Yju0Sa5mF5nkM7FHIu9Q7bKKlaQPImo"
 }
 
 
@@ -159,3 +159,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxO
 {
   "email": "invitado3@mail.com"
 }
+
+###
+
+#Borrar usuario
+DELETE http://localhost:3000/api/user?soft=false
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0Zjc5OThmYmRiOGJhYjRhMmI5NjkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NjQ4NzIsImV4cCI6MTc3NTU2NTc3Mn0.oKXH69z0V_u2M45g0npf8dpzLmwceBRNpoSbyuF67cw
