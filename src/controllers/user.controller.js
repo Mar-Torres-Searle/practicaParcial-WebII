@@ -1,7 +1,7 @@
 import User from '../models/user.model.js';
 import { handleHttpError } from '../utils/handleError.js';
 import notificationService from '../services/notification.service.js';
-import { encrypt } from '../utils/handlePassword.js';
+import { encrypt, compare } from '../utils/handlePassword.js';
 import { tokenSign, tokenSignRefresh } from '../utils/handleJwt.js';
 
 
@@ -110,5 +110,48 @@ export const validateUser = async (req, res) => {
 // POST /api/user/login
 
 export const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
     
+        const user = await User.findOne({ email }).select('+password');
+    
+        if (!user) {
+          handleHttpError(res, 'INVALID_CREDENTIALS', 401);
+          return;
+        }
+    
+        const isValidPassword = await compare(password, user.password);
+    
+        if (!isValidPassword) {
+          handleHttpError(res, 'INVALID_CREDENTIALS', 401);
+          return;
+        }
+    
+        if (user.status !== 'verified') {
+          handleHttpError(res, 'USER_NOT_VERIFIED', 401);
+          return;
+        }
+    
+        const accessToken = tokenSign(user);
+        const refreshToken = tokenSignRefresh(user);
+    
+        user.refreshToken = refreshToken;
+        await user.save();
+    
+        res.status(200).json({
+          error: false,
+          message: 'Login correcto',
+          data: {
+            user: {
+              email: user.email,
+              status: user.status,
+              role: user.role
+            },
+            accessToken,
+            refreshToken
+          }
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_LOGIN_USER', 500);
+    }
 }

@@ -7,7 +7,7 @@ POST http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
-  "email": "validation3@mail.com",
+  "email": "validation5@mail.com",
   "password": "12345678"
 }
 
@@ -21,4 +21,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjYxO
 
 {
   "code": "287312"
+}
+
+###
+
+#Hacer login
+POST http://localhost:3000/api/user/login
+Content-Type: application/json
+
+{
+  "email": "validation1@mail.com",
+  "password": "12345678"
 }
