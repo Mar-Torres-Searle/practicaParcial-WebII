@@ -48,3 +48,5 @@ Content-Type: application/json
 ###
 
 #Logout
+POST http://localhost:3000/api/user/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0YjU5NmYzYTZlYjVmNjBjOWY2YmEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzU1NTUyNjQsImV4cCI6MTc3NTU1NjE2NH0.9Eq1PXgT-B-wIq1ZIEZzDqfZ0qyKpU6M7QKu789OYHs

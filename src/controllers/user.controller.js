@@ -196,7 +196,30 @@ export const refreshTokenUser = async (req, res) => {
           }
         });
     } catch (error) {
-        console.error('ERROR REAL EN REFRESH:', error);
         handleHttpError(res, 'ERROR_REFRESH_TOKEN', 500);
+    }
+}
+
+
+// POST /api/user/logout
+
+export const logoutUser = async (req, res) => {
+    try {
+        const user = req.user;
+    
+        if (!user) {
+          handleHttpError(res, 'USER_NOT_FOUND', 404);
+          return;
+        }
+    
+        user.refreshToken = undefined;
+        await user.save();
+    
+        res.status(200).json({
+          error: false,
+          message: 'Logout correcto'
+        });
+    } catch (error) {
+        handleHttpError(res, 'ERROR_LOGOUT_USER', 500);
     }
 }
