@@ -178,3 +178,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ0ZmI2M
   "currentPassword": "87654321",
   "newPassword": "87654321"
 }
+
+
+###
+
+GET http://localhost:3000/api/image/pdf
